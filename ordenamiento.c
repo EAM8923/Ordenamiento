@@ -1,5 +1,93 @@
 #include "ordenamiento.h"
 #include <stdio.h>
+#include <math.h>
+
+int min(int array[], int n){
+    int i, menor = array[0];
+    for(i = 1; i < n; i++){
+        if(array[i] < menor){
+            menor = array[i];
+        }
+    }
+    return menor;
+}
+
+int max(int array[], int n){
+    int i, mayor = array[0];
+    for(i = 1; i < n; i++){
+        if(array[i] > mayor){
+            mayor = array[i];
+        }
+    }
+    return mayor;
+}
+
+float average(int array[], int n){
+    int i, suma = 0;
+    for(i = 0; i < n; i++){
+        suma += array[i];
+    }
+    return (float)suma / n;
+}
+
+float estDev(int array[], int n){
+    int i;
+    float media = average(array, n);
+    float suma = 0;
+
+    for(i = 0; i < n; i++){
+        suma += (array[i] - media) * (array[i] - media);
+    }
+
+    return sqrt(suma / n);
+}
+
+float median(int array[], int n){
+    int copia[100];
+    int i;
+
+    // copiar arreglo
+    for(i = 0; i < n; i++){
+        copia[i] = array[i];
+    }
+
+    // ordenar copia
+    bubbleSort(copia, n);
+
+    if(n % 2 == 0){
+        return (copia[n/2 - 1] + copia[n/2]) / 2.0;
+    } else {
+        return copia[n/2];
+    }
+}
+
+int mode(int array[], int n){
+    int i, j, cont, max_cont = 0;
+    int moda = array[0];
+
+    for(i = 0; i < n; i++){
+        cont = 0;
+        for(j = 0; j < n; j++){
+            if(array[j] == array[i]){
+                cont++;
+            }
+        }
+        if(cont > max_cont){
+            max_cont = cont;
+            moda = array[i];
+        }
+    }
+
+    return moda;
+}
+
+void copyArray(int source[], int destiny[],int tam){
+
+    int t;
+    for (t=0;t<tam;t++){
+        destiny[t] = source[t];
+    }
+}
 
 //Esta funcion pide un arreglo
 int* setArray(int array[], int tam){
@@ -10,6 +98,7 @@ int* setArray(int array[], int tam){
     }
     return array;
 }
+
 
 void printArray(int array[], int tam){//Se pone el tamaño del arreglo si lo tiene
     int i;
