@@ -82,7 +82,6 @@ int mode(int array[], int n){
 }
 
 void copyArray(int source[], int destiny[],int tam){
-
     int t;
     for (t=0;t<tam;t++){
         destiny[t] = source[t];
@@ -135,6 +134,27 @@ int validarDato(int valor){
     return valor;
 }
 
+void graph(int array[], int n){
+    int i, j;
+
+    for(i = 0; i < n; i++){
+        printf("%d: ", array[i]);
+        for(j = 0; j < array[i]; j++){
+            printf("*");
+        }
+
+        printf("\n");
+    }
+}
+
+int validarSiHayArreglo(int n){
+    if(n <= 0){
+        return 0;
+    }else{
+        return 1;
+    }
+}
+
 void menu() {
     int array[100];
     int n = 0;
@@ -161,21 +181,46 @@ void menu() {
                 setArray(array, dato);
                 break;
             case 'b':
-                printf("Arreglo originalmente capturado:\n");
-                printArray(array, n);
+                if(validarSiHayArreglo(n)==0){
+                    printf("No hay arreglo capturado, captura con opcion a)\n");
+                    break;
+                }else{
+                    printf("Arreglo originalmente capturado:\n");
+                    printArray(array, n);
+                }
                 break;
             case 'c':
-                //int i;
-                for(i=0; i<n; i++){
-                    copia[i] = array[i];
+                if(validarSiHayArreglo(n)==0){
+                    printf("No hay arreglo capturado, captura con opcion a)\n");
+                    break;
+                }else{
+                    copyArray(array, copia, n);
+                    bubbleSort(copia, n);
+                    printf("Arreglo ordenado:\n");
+                    printArray(copia, n);
                 }
-                bubbleSort(copia, n);
-                printf("Arreglo ordenado:\n");
-                printArray(copia, n);
                 break;
             case 'd':
+                if(validarSiHayArreglo(n)==0){
+                    printf("No hay arreglo capturado, captura con opcion a)\n");
+                    break;
+                }else{
+                    printf("Minimo: %d\n", min(array, n));
+                    printf("Maximo: %d\n", max(array, n));
+                    printf("Promedio: %.2f\n", average(array, n));
+                    printf("Desviacion estandar: %.2f\n", estDev(array, n));
+                    printf("Mediana: %.2f\n", median(array, n));
+                    printf("Moda: %d\n", mode(array, n));
+                }
                 break;
             case 'e':
+                if(validarSiHayArreglo(n)==0){
+                    printf("No hay arreglo capturado, captura con opcion a)\n");
+                    break;
+                }else{
+                    printf("Histograma:\n");
+                    graph(array, n);
+                }
                 break;
             case 'f':
                 printf("Saliendo...\n");
